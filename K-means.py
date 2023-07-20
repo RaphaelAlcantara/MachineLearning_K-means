@@ -1,7 +1,6 @@
 from sklearn.cluster import KMeans
 import pandas as pd
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 
 # Leitura dos dados e definição das colunas
 X = pd.read_csv('kmeans.txt', sep=';', header=None)
@@ -11,7 +10,7 @@ X.columns = ['x', 'y', 'z']
 X = X.loc[:, ['x', 'y', 'z']]
 
 # Número de clusters (K)
-K = 4
+K = 6
 
 # Gráfico da dispersão dos dados em 3D
 fig = plt.figure(figsize=(12, 8))
@@ -26,14 +25,15 @@ print('Agrupamento: ', kmeans.labels_)
 print('Centroides: ', kmeans.cluster_centers_)
 
 # Gráfico de dispersão dos dados em 3D com cores representando os clusters e centróides em preto
-fig2 = plt.figure(figsize=(16, 8))
+fig2 = plt.figure(figsize=(12, 8))
 ax = fig2.add_subplot(111, projection='3d')
 ax.set_title(f'Gráfico de dispersão com {K} clusters')
 # Background color
 ax.set_facecolor('grey')
+fig2.set_facecolor('grey')
 
 ax.scatter(X['x'], X['y'], X['z'], c=kmeans.labels_, cmap='rainbow')
-ax.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], kmeans.cluster_centers_[:, 2], c='black', s=200)
+ax.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], kmeans.cluster_centers_[:, 2], c='black')
 
 
 plt.show()
@@ -56,5 +56,3 @@ ax.set_title('Cotovelo')
 ax.set_facecolor('grey')
 ax.plot(valores_k, inercias, '-o')
 plt.show()
-
-
